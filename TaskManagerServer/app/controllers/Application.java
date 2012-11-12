@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -13,6 +14,9 @@ import models.UserAccount;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 public class Application extends Controller {
 
@@ -76,6 +80,21 @@ public class Application extends Controller {
 	public static Result deleteProject(Long id) {
 		Project.delete(id);
 		return redirect(routes.Application.projects());
+	}
+	
+// -- JSON
+	
+
+	public static Result tasksJson() {
+	  
+	  List<Task> tasks = Task.findAll();
+	  //ObjectNode result = Json.newObject();
+	 
+	    //result.put("Task", "OK");
+	    //for (int i=0;i<tasks.size();i++)
+	  //  result.put("Task", "Ready"+ tasks.get(i));
+	    return ok(Json.toJson(tasks));
+	  
 	}
 
 // -- Authentication
